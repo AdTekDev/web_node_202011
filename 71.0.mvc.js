@@ -311,15 +311,11 @@ function writeLog(dataw) {
 /// ..................................................
 app.get('/qr', qrPage);
 function qrPage(req, res) {
-    var inter = os.networkInterfaces();
-    var xcontent = "";
 
+    var xcontent = "";
+    var str = 'https://atn202011.herokuapp.com/';
     console.log('\t ... get QR INF ! ');
-    for(var key in inter) {
-        if (key.indexOf("Wi-Fi") >= 0) {             
-            var str = "http://" + 
-                inter[key][1]["address"] + ":"
-                + PORT + "/client";
+    
             var sv = new QRCode({
                 content: str,
                 padding: 4,
@@ -331,8 +327,6 @@ function qrPage(req, res) {
             }).svg();
             
             xcontent += "<br>" + sv;
-
-            console.log("\n\t", inter[key][1]["address"] );
 
             str = "https://www.facebook.com/Tu.NN79/";
             sv = new QRCode({
@@ -348,8 +342,6 @@ function qrPage(req, res) {
 
             res.render("pages/qr", {title: "ATN-Shop QR-Code page", content: xcontent , configHeader: configHeader  , currpage: "QR code - link"  });
 
-        }
-    }
 }
 
 /// ------------------ gọi SERVER thực thi
